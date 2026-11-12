@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shan Koe Mee</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#091b18;
+color:#fff;
+}
+header{
+background:linear-gradient(120deg,#102b25,#06120f);
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:2px solid #d6ad57;
+}
+.logo{
+font-size:23px;
+font-weight:bold;
+color:#f4d48b;
+}
+select{
+background:#17362d;
+color:white;
+border:1px solid #d6ad57;
+padding:9px;
+border-radius:8px;
+}
+.container{
+max-width:1100px;
+margin:auto;
+padding:25px;
+}
+.profile{
+background:linear-gradient(135deg,#21483b,#10261f);
+border:1px solid #a68a50;
+padding:20px;
+border-radius:16px;
+display:flex;
+align-items:center;
+gap:15px;
+}
+.avatar{
+width:65px;
+height:65px;
+border-radius:50%;
+background:#d6ad57;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+}
+h2{
+color:#f4d48b;
+margin-top:30px;
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+}
+.card{
+background:linear-gradient(145deg,#214338,#10271f);
+border:1px solid #8e7745;
+border-radius:16px;
+padding:25px;
+text-align:center;
+cursor:pointer;
+transition:.2s;
+}
+.card:hover{
+transform:translateY(-4px);
+border-color:#f4d48b;
+}
+.icon{font-size:40px}
+.card h3{color:#f4d48b}
+button{
+background:linear-gradient(90deg,#e3bc6d,#aa7c30);
+border:none;
+padding:12px 25px;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+color:#172019;
+}
+.actions{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+margin-top:25px;
+}
+footer{
+text-align:center;
+padding:25px;
+color:#a0aaa4;
+}
+@media(max-width:700px){
+.grid{grid-template-columns:1fr}
+header{padding:15px}
+.logo{font-size:18px}
+.container{padding:15px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">♠ SHAN KOE MEE</div>
+<select id="language" onchange="changeLanguage()">
+<option value="zh">中文</option>
+<option value="my">မြန်မာ</option>
+<option value="en">English</option>
+</select>
+</header>
+
+<div class="container">
+
+<div class="profile">
+<div class="avatar">👤</div>
+<div>
+<h3 id="username">游客玩家</h3>
+<p>ID: DEMO001</p>
+<p id="status">● 演示模式</p>
+</div>
+</div>
+
+<h2 data-key="welcome">欢迎来到游戏大厅</h2>
+
+<div class="actions">
+<button data-key="quick" onclick="demo('quick')">
+快速匹配
+</button>
+<button data-key="create" onclick="demo('create')">
+创建房间
+</button>
+<button data-key="join" onclick="demo('join')">
+加入房间
+</button>
+</div>
+
+<h2 data-key="rooms">游戏房间</h2>
+
+<div class="grid">
+
+<div class="card" onclick="demo('beginner')">
+<div class="icon">🟢</div>
+<h3 data-key="beginner">初级房间</h3>
+<p data-key="beginnerDesc">适合新玩家</p>
+<button data-key="enter">进入房间</button>
+</div>
+
+<div class="card" onclick="demo('intermediate')">
+<div class="icon">🔵</div>
+<h3 data-key="intermediate">中级房间</h3>
+<p data-key="intermediateDesc">真人竞技体验</p>
+<button data-key="enter">进入房间</button>
+</div>
+
+<div class="card" onclick="demo('advanced')">
+<div class="icon">👑</div>
+<h3 data-key="advanced">高级房间</h3>
+<p data-key="advancedDesc">高级玩家对战</p>
+<button data-key="enter">进入房间</button>
+</div>
+
+</div>
+
+<h2 data-key="community">玩家中心</h2>
+
+<div class="grid">
+
+<div class="card" onclick="demo('friends')">
+<div class="icon">👥</div>
+<h3 data-key="friends">好友系统</h3>
+</div>
+
+<div class="card" onclick="demo('ranking')">
+<div class="icon">🏆</div>
+<h3 data-key="ranking">排行榜</h3>
+</div>
+
+<div class="card" onclick="demo('messages')">
+<div class="icon">💬</div>
+<h3 data-key="messages">消息中心</h3>
+</div>
+
+</div>
+
+</div>
+
+<footer>SHAN KOE MEE · DEMO VERSION</footer>
+
+<script>
+const translations={
+zh:{
+welcome:"欢迎来到游戏大厅",
+quick:"快速匹配",
+create:"创建房间",
+join:"加入房间",
+rooms:"游戏房间",
+beginner:"初级房间",
+beginnerDesc:"适合新玩家",
+intermediate:"中级房间",
+intermediateDesc:"真人竞技体验",
+advanced:"高级房间",
+advancedDesc:"高级玩家对战",
+enter:"进入房间",
+community:"玩家中心",
+friends:"好友系统",
+ranking:"排行榜",
+messages:"消息中心",
+guest:"游客玩家",
+status:"● 演示模式",
+coming:"功能正在开发中"
+},
+my:{
+welcome:"ဂိမ်းခန်းမမှ ကြိုဆိုပါသည်",
+quick:"အမြန်ယှဉ်ပြိုင်",
+create:"အခန်းဖန်တီးရန်",
+join:"အခန်းဝင်ရန်",
+rooms:"ဂိမ်းအခန်းများ",
+beginner:"အခြေခံအခန်း",
+beginnerDesc:"ကစားသမားအသစ်များအတွက်",
+intermediate:"အလယ်အလတ်အခန်း",
+intermediateDesc:"ကစားသမားများနှင့် ယှဉ်ပြိုင်ရန်",
+advanced:"အဆင့်မြင့်အခန်း",
+advancedDesc:"ကျွမ်းကျင်သူများအတွက်",
+enter:"ဝင်ရန်",
+community:"ကစားသမားစင်တာ",
+friends:"သူငယ်ချင်းများ",
+ranking:"အဆင့်သတ်မှတ်ချက်",
+messages:"စာတိုများ",
+guest:"ဧည့်သည်",
+status:"● စမ်းသပ်မုဒ်",
+coming:"ဤလုပ်ဆောင်ချက်ကို ဖန်တီးနေဆဲဖြစ်သည်"
+},
+en:{
+welcome:"Welcome to the Game Lobby",
+quick:"Quick Match",
+create:"Create Room",
+join:"Join Room",
+rooms:"Game Rooms",
+beginner:"Beginner Room",
+beginnerDesc:"For new players",
+intermediate:"Intermediate Room",
+intermediateDesc:"Multiplayer experience",
+advanced:"Advanced Room",
+advancedDesc:"For experienced players",
+enter:"Enter Room",
+community:"Player Center",
+friends:"Friends",
+ranking:"Leaderboard",
+messages:"Messages",
+guest:"Guest Player",
+status:"● Demo Mode",
+coming:"This feature is under development"
+}
+};
+
+let currentLanguage="zh";
+
+function changeLanguage(){
+currentLanguage=document.getElementById("language").value;
+document.documentElement.lang=currentLanguage;
+document.querySelectorAll("[data-key]").forEach(el=>{
+const key=el.dataset.key;
+el.textContent=translations[currentLanguage][key];
+});
+document.getElementById("username").textContent=
+translations[currentLanguage].guest;
+document.getElementById("status").textContent=
+translations[currentLanguage].status;
+localStorage.setItem("skm_language",currentLanguage);
+}
+
+function demo(feature){
+alert(translations[currentLanguage].coming);
+}
+
+const saved=localStorage.getItem("skm_language");
+if(saved && translations[saved]){
+document.getElementById("language").value=saved;
+}
+changeLanguage();
+</script>
+
+</body>
+</html>
